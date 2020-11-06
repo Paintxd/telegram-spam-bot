@@ -10,13 +10,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 async function sendRequest(message) {
-  for(let i=0; i<=2500000000; i++) {
-    if(i===2500000000) {
-      await axios.post(`${process.env.DEPLOY_URL}new-message`, {
-        message
-      });
-    }
-  }
+  await new Promise(resolve => setTimeout(resolve, 5000));
+  await axios.post(`${process.env.DEPLOY_URL}new-message`, {
+    message
+  });
 }
 
 app.post('/new-message', (req, res) => {
@@ -26,7 +23,7 @@ app.post('/new-message', (req, res) => {
   if (!message) res.end()
   
   const local = moment(Date.now()).subtract(3, 'h');
-  axios.post(`${botUrl}/sendMessage`, {
+  await axios.post(`${botUrl}/sendMessage`, {
     chat_id: message.chat.id,
     text: `Olha a hora - ${local.format('h:mm:ss')}`
     })
