@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 async function sendRequest(message) {
-  await new Promise(resolve => setTimeout(resolve, 15000));
+  await new Promise(resolve => setTimeout(resolve, 60000));
   await axios.post(`${process.env.DEPLOY_URL}new-message`, {
     message
   });
