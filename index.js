@@ -23,7 +23,7 @@ app.post('/new-message', (req, res) => {
   if (!message) res.end()
   
   const local = moment(Date.now()).subtract(3, 'h');
-  await axios.post(`${botUrl}/sendMessage`, {
+  axios.post(`${botUrl}/sendMessage`, {
     chat_id: message.chat.id,
     text: `Olha a hora - ${local.format('h:mm:ss')}`
     })
